@@ -5,31 +5,38 @@ import { eq } from "drizzle-orm";
 import { db } from "./drizzle/db";
 import { UserTable } from "./drizzle/schema";
 
+const userRoutes = require("./routes/userRoutes");
+
 const app: Application = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3000;
 
-app.post("/user", async (req: Request, res: Response) => {
-  const { name } = req.query;
+app.use("/api", userRoutes);
 
-  if (!name) {
-    return res.status(400).json({ error: "Name is required" });
-  }
+// app.post("/user", async (req: Request, res: Response) => {
+//   const { name } = req.query;
 
-  try {
-    const users = await db
-      .insert(UserTable)
-      .values({
-        name: `${name}`,
-      })
-      .returning();
+//   if (!name) {
+//     return res.status(400).json({ error: "Name is required" });
+//   }
 
-    res.status(201).json({ message: "User created successfully", user: users });
-  } catch (error) {
-    console.error("Error creating user:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
+//   try {
+//     const users = await db
+//       .insert(UserTable)
+//       .values({
+//         name: `${name}`,
+//       })
+//       .returning();
+
+//     res.status(201).json({ message: "User created successfully", user: users });
+//   } catch (error) {
+//     console.error("Error creating user:", error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
 app.get("/userdata", async (req: Request, res: Response) => {
   const { name } = req.query;
