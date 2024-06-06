@@ -1,10 +1,9 @@
 import express, { Application, Request, Response } from "express";
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config();
-import { eq } from "drizzle-orm";
-import { db } from "./drizzle/db";
-import { UserTable } from "./drizzle/schema";
-
+const { eq } = require("drizzle-orm");
+const { db } = require("./drizzle/db");
+const { UserTable } = require("./drizzle/schema");
 const userRoutes = require("./routes/userRoutes");
 
 const app: Application = express();

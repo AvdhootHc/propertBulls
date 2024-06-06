@@ -1,7 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
-import { eq } from "drizzle-orm";
-import { db } from "../../drizzle/db";
-import { UserTable } from "../../drizzle/schema";
+const { eq } = require("drizzle-orm");
+const { db } = require("../../drizzle/db");
+const { UserTable } = require(".././../drizzle/schema");
 const { application } = require("express");
 
 async function createUser(data: any) {
